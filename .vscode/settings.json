@@ -1,0 +1,6 @@
+{
+    "python.linting.pylintArgs": [
+        "--unsafe-load-any-extension=y","--extension-pkg-whitelist=pygame","--errors-only"
+    ],
+    "python.pythonPath": "/usr/bin/python3"
+}
