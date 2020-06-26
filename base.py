@@ -36,6 +36,7 @@ PLAYER_BULLET=pygame.image.load(os.path.join("assets","bullet_player_32.png"))
 #background
 BG=pygame.transform.scale(pygame.image.load(os.path.join("assets","background-black.png")),(WIDTH,HEIGHT))
 
+GAMEOVER_TEXT=pygame.image.load(os.path.join("assets","gameover_text.png"))
 
 class Ship(object):
     COOLDOWN = 20
@@ -139,7 +140,7 @@ class Enemy(Ship):
         self.y+=self.vel_y
         if(self.x<=0):
             self.dir*=-1
-        if(self.x>=WIDTH):
+        if(self.x>=WIDTH-self.get_width()):
             self.dir*=-1
         self.x+=self.dir*self.vel_x
 

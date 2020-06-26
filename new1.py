@@ -3,6 +3,8 @@ import os
 import time
 import random
 from base import *
+from button import *
+
 pygame.init()
 pygame.font.init()
 
@@ -73,13 +75,13 @@ def main():
                     run=False
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_a] and player.x - player_vel > 0 :
+        if (keys[pygame.K_a] or keys[pygame.K_LEFT]) and player.x - player_vel > 0 :
             player.x-=player_vel
-        if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH :
+        if (keys[pygame.K_d] or keys[pygame.K_RIGHT]) and player.x + player_vel + player.get_width() < WIDTH :
             player.x+=player_vel
-        if keys[pygame.K_w] and player.y - player_vel > 0 :
+        if (keys[pygame.K_w] or keys[pygame.K_UP]) and player.y - player_vel > 0 :
             player.y-=player_vel
-        if keys[pygame.K_s] and player.y + player_vel + player.get_height() +20 < HEIGHT :
+        if (keys[pygame.K_s] or keys[pygame.K_DOWN]) and player.y + player_vel + player.get_height() +20 < HEIGHT :
             player.y+=player_vel
         if keys[pygame.K_SPACE]:
             player.shoot()
@@ -119,6 +121,35 @@ def main_menu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 main()
 
+def game_over_menu(score):
+    restart_button=Button((0,255,0), WIDTH/2-75, HEIGHT-100, 150, 50, "Play Again", (255,255,255))
+    score_font= pygame.font.SysFont("comicsans", 70)
+    run = True
+    while run:
+        WIN.blit(BG,(0,0))
+        score_label= score_font.render("Your Score: "+str(score),1,(0,255,0))
+        WIN.blit(GAMEOVER_TEXT,(WIDTH/2-GAMEOVER_TEXT.get_width()/2,HEIGHT/2-GAMEOVER_TEXT.get_height()/2-score_label.get_height()))
+        WIN.blit(score_label, (WIDTH/2-score_label.get_width()/2,HEIGHT/2+GAMEOVER_TEXT.get_height()/2-score_label.get_height()))
+        restart_button.draw(WIN, (0,0,0))
+        pygame.display.update()
 
-main_menu()
+        for event in pygame.event.get():
+            pos=pygame.mouse.get_pos()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if restart_button.isOver(pos):
+                    print("clicked the button")
+                    run=False
+            if event.type == pygame.QUIT:
+                run=False
+                exit()
+            if event.type == pygame.MOUSEMOTION:
+                if restart_button.isOver(pos):
+                    restart_button.color=(0,0,255)
+                else:
+                    restart_button.color=(0,255,0)
+
+
+game_over_menu(1)
+#main_menu()
 
