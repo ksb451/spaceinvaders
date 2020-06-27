@@ -9,14 +9,22 @@ WAV_PER_LVL={
     1:7,
     2:9,
     3:11,
-    4:13,
-    5:15,
-    6:7,
-    7:9,
-    8:11,
-    9:13,
-    10:15
+    0:13
 }
+
+def SPEEDBOOST_X(level):
+    if level <=5:
+        return 0
+    elif level <=10:
+        return 1
+    else:
+        return 2
+
+def SPEEDBOST_Y(level):
+    if level<=10:
+        return 0
+    else:
+        return 1
 
 WIN=pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Space Invaders")
@@ -109,6 +117,8 @@ class Player(Ship):
                     if bullet.collison(obj):
                         objs.remove(obj)
                         self.bullets.remove(bullet)
+                        return True
+        return False
     
     def draw(self,window):
         super().draw(window)
@@ -125,12 +135,12 @@ class Enemy(Ship):
                 "blue":(BLUE_SPACESHIP,ENEMY_BULLET)
                 }
     
-    def __init__(self,x,y,color,health=100):
+    def __init__(self,x,y,color,level,health=100):
         super().__init__(x,y,health)
         self.ship_img, self.bullet_img = self.COLOR_MAP[color]
         self.mask=pygame.mask.from_surface(self.ship_img)
-        self.vel_x=2
-        self.vel_y=1
+        self.vel_x=2+SPEEDBOOST_X(level)
+        self.vel_y=1+SPEEDBOST_Y(level)
         self.dir=-1
     
     def shoot(self):
