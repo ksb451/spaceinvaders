@@ -7,6 +7,4 @@ install pygame
 
 pip3 install pygame
 
-run main.py
-
-python3 main.py
+python3 run.py
