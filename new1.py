@@ -23,7 +23,7 @@ def main():
 
     #enemy_vel=1
     laser_vel=10
-    player_vel=5
+    player_vel=7
 
     player=Player(375,450)
 
@@ -63,10 +63,10 @@ def main():
         
         if(len(enemies)==0):
             level+=1
-            if level <=8:
-                wave_length=WAV_PER_LVL[level%4]
+            if level <=6:
+                wave_length=WAV_PER_LVL[level%3]
             else:
-                wave_length=random.randint(15,20)
+                wave_length=random.randint(13,17)
             for i in range(wave_length):
                 enemy = Enemy(random.randrange(50,WIDTH-100),random.randrange(-1000,-100),random.choice(["red","blue", "green"]),level)
                 enemies.append(enemy)
@@ -165,6 +165,5 @@ def game_over_menu(score):
                 else:
                     restart_button.color=(0,255,0)
 
-game_over_menu(1)
-#main_menu()
+main_menu()
 

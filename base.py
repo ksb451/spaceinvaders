@@ -7,21 +7,22 @@ WIDTH,HEIGHT=900,600
 MAX_LVL=10
 WAV_PER_LVL={
     1:7,
-    2:9,
-    3:11,
+    2:10,
     0:13
 }
 
 def SPEEDBOOST_X(level):
-    if level <=5:
+    if level <=3:
         return 0
-    elif level <=10:
+    elif level <=7:
         return 1
-    else:
+    elif level <=10:
         return 2
+    else:
+        return random.randint(1,3)
 
 def SPEEDBOST_Y(level):
-    if level<=10:
+    if level<=6:
         return 0
     else:
         return 1
@@ -47,7 +48,7 @@ BG=pygame.transform.scale(pygame.image.load(os.path.join("assets","background-bl
 GAMEOVER_TEXT=pygame.image.load(os.path.join("assets","gameover_text.png"))
 
 class Ship(object):
-    COOLDOWN = 20
+    COOLDOWN = 15
 
 
     def __init__(self,x,y,health=100):
