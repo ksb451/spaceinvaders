@@ -4,7 +4,9 @@
 A basic Space invaders game made using python and pygame
 
 install pygame
+
 pip3 install pygame
 
 run main.py
+
 python3 main.py
