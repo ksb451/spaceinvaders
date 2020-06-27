@@ -3,6 +3,8 @@ import os
 import time
 import random
 
+pygame.init()
+
 WIDTH,HEIGHT=900,600
 MAX_LVL=10
 WAV_PER_LVL={
